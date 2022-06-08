@@ -44,8 +44,7 @@ class PackedFaceset():
 
         as_person_faceset = False
         dir_names = pathex.get_all_dir_names(samples_path)
-        if len(dir_names) != 0:
-            as_person_faceset = io.input_bool(f"{len(dir_names)} subdirectories found, process as person faceset?", True)
+
 
         if as_person_faceset:
             image_paths = []
@@ -125,17 +124,7 @@ class PackedFaceset():
             zipObj.close()
           
         
-        if io.input_bool(f"Delete original files?", True):
-            for filename in io.progress_bar_generator(image_paths, "Deleting files"):
-                Path(filename).unlink()
 
-            if as_person_faceset:
-                for dir_name in io.progress_bar_generator(dir_names, "Deleting dirs"):
-                    dir_path = samples_path / dir_name
-                    try:
-                        shutil.rmtree(dir_path)
-                    except:
-                        io.log_info (f"unable to remove: {dir_path} ")
 
     @staticmethod
     def unpack(samples_path):
