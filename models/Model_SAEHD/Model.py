@@ -417,10 +417,7 @@ class SAEHDModel(ModelBase):
                     self.src_dst_trainable_weights = self.src_dst_saveable_weights
                 elif 'liae' in archi_type:
                     self.src_dst_saveable_weights = self.encoder.get_weights() + self.inter_AB.get_weights() + self.inter_B.get_weights() + self.decoder.get_weights()
-                    if random_warp:
-                        self.src_dst_trainable_weights = self.src_dst_saveable_weights
-                    else:
-                        self.src_dst_trainable_weights = self.encoder.get_weights() + self.inter_B.get_weights() + self.decoder.get_weights()
+                    self.src_dst_trainable_weights = self.src_dst_saveable_weights
 
                 self.src_dst_opt = OptimizerClass(lr=lr, lr_dropout=lr_dropout, lr_cos=lr_cos, clipnorm=clipnorm, name='src_dst_opt')
                 self.src_dst_opt.initialize_variables (self.src_dst_saveable_weights, vars_on_cpu=optimizer_vars_on_cpu, lr_dropout_on_cpu=self.options['lr_dropout']=='cpu')
